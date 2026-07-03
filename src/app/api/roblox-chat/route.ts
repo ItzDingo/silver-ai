@@ -4,11 +4,14 @@ export async function POST(req: NextRequest) {
   try {
     const { message, secret, userId } = await req.json();
 
-    console.log("Received secret:", JSON.stringify(secret));
-    console.log("Expected secret:", JSON.stringify(process.env.ROBLOX_SHARED_SECRET));
-
     if (secret !== process.env.ROBLOX_SHARED_SECRET) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({
+        error: "Unauthorized",
+        debug_received: secret,
+        debug_expected: process.env.ROBLOX_SHARED_SECRET,
+        debug_received_length: secret?.length,
+        debug_expected_length: process.env.ROBLOX_SHARED_SECRET?.length,
+      }, { status: 401 });
     }
 
     if (!message || typeof message !== "string") {
@@ -26,7 +29,7 @@ export async function POST(req: NextRequest) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "cohere/north-mini-code:free", // e.g. "openai/gpt-4o-mini" - use whatever "Expert" uses
+        model: "cohere/north-mini-code:free",
         messages: [{ role: "user", content: message }],
         max_tokens: 500,
       }),
