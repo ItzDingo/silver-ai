@@ -4,7 +4,9 @@ export async function POST(req: NextRequest) {
   try {
     const { message, secret, userId } = await req.json();
 
-    // Simple shared-secret check so random people can't hit this endpoint
+    console.log("Received secret:", JSON.stringify(secret));
+    console.log("Expected secret:", JSON.stringify(process.env.ROBLOX_SHARED_SECRET));
+
     if (secret !== process.env.ROBLOX_SHARED_SECRET) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
