@@ -36,8 +36,9 @@ export async function POST(req: NextRequest) {
     }
 
     const reply = data.choices?.[0]?.message?.content ?? "Sorry, I couldn't generate a reply.";
+    const usage = data.usage ?? null;
 
-    return NextResponse.json({ reply });
+    return NextResponse.json({ reply, usage });
   } catch (err) {
     console.error("Roblox chat error:", err);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
