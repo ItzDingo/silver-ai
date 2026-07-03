@@ -5,13 +5,7 @@ export async function POST(req: NextRequest) {
     const { message, secret, userId } = await req.json();
 
     if (secret !== process.env.ROBLOX_SHARED_SECRET) {
-      return NextResponse.json({
-        error: "Unauthorized",
-        debug_received: secret,
-        debug_expected: process.env.ROBLOX_SHARED_SECRET,
-        debug_received_length: secret?.length,
-        debug_expected_length: process.env.ROBLOX_SHARED_SECRET?.length,
-      }, { status: 401 });
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     if (!message || typeof message !== "string") {
