@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+}
+
+model User {
+  id           String    @id @default(uuid())
+  username     String    @unique
+  passwordHash String
+  name         String
+  avatarUrl    String?   // Base64-encoded profile picture or avatar type
+  createdAt    DateTime  @default(now())
+  chats        Chat[]
+  settings     Settings?
+}
+
+model Settings {
+  id                 String  @id @default(uuid())
+  userId             String  @unique
+  user               User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fastModelSource    String  @default("ollama")
+  fastModelName      String  @default("hf.co/bartowski/Llama-3.1-8B-Lexi-Uncensored-V2-GGUF:Q4_K_M")
+  expertModelSource  String  @default("openrouter")
+  expertModelName    String  @default("nvidia/nemotron-3-ultra-550b-a55b:free")
+  openRouterApiKey   String?
+  ollamaUrl          String  @default("http://localhost:11434")
+  websearchEnabled   Boolean @default(false)
+  thinkingEnabled    Boolean @default(true)
+  reasoningEffort    String  @default("medium") // low, medium, high
+}
+
+model Chat {
+  id        String    @id @default(uuid())
+  title     String
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  messages  Message[]
+}
+
+model Message {
+  id           String   @id @default(uuid())
+  chatId       String
+  chat         Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  role         String   // "user" | "assistant" | "system"
+  content      String
+  thought      String?  // Capture reasoning/thinking output
+  thinkingTime Int?     // Thinking duration in milliseconds
+  imageUrl     String?  // Base64 encoded image data if attached
+  createdAt    DateTime @default(now())
+}
