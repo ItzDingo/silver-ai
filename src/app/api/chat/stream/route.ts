@@ -27,9 +27,9 @@ const MODEL_CAPABILITIES: Record<string, {
     supportsWebSearch: true,
     supportsEffort: false,
   },
-  "nvidia/nemotron-3-ultra-550b-a55b:free": {
+  "stealth/space-bunny-alpha": {
     supportsThinking: true,
-    supportsImages: false,
+    supportsImages: true,
     supportsWebSearch: true,
     supportsEffort: true,
   },
