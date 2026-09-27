@@ -389,7 +389,7 @@ export default function ChatPage() {
           modelType,
           modelName: modelType === "fast"
             ? "hf.co/bartowski/Llama-3.1-8B-Lexi-Uncensored-V2-GGUF:Q4_K_M"
-            : (deepThink ? "nvidia/nemotron-3-ultra-550b-a55b:free" : "cohere/north-mini-code:free"),
+            : (deepThink ? "stealth/space-bunny-alpha" : "cohere/north-mini-code:free"),
           thinkingEnabled: modelType === "expert" ? true : (thinkingEnabled && currentCaps.supportsThinking),
           reasoningEffort,
           imageData,
