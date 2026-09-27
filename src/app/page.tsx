@@ -189,7 +189,7 @@ export default function ChatPage() {
   const currentCaps = modelType === "fast"
     ? capabilities.fast
     : (deepThink
-        ? { supportsThinking: true, supportsImages: false, supportsWebSearch: true, supportsEffort: true }
+        ? { supportsThinking: true, supportsImages: true, supportsWebSearch: true, supportsEffort: true }
         : { supportsThinking: false, supportsImages: false, supportsWebSearch: true, supportsEffort: true }
       );
 
