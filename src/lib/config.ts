@@ -20,7 +20,7 @@ export const appConfig = {
     "hf.co/bartowski/Llama-3.1-8B-Lexi-Uncensored-V2-GGUF:Q4_K_M",
   expertModelName:
     process.env.EXPERT_MODEL_NAME?.trim() ||
-    "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "stealth/space-bunny-alpha",
   openRouterApiKey: process.env.OPENROUTER_API_KEY?.trim() || "",
   fastModelTemperature: parseEnvFloat("FAST_MODEL_TEMPERATURE", 0.7),
   expertModelTemperature: parseEnvFloat("EXPERT_MODEL_TEMPERATURE", 0.7),
